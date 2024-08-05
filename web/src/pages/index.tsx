@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import { getActiveTasks, getCompletedTasks, createTask, completeTask, deleteTask } from "C:/Users/arpan/sunrise-2024/web/src/modules/taskManager";
+import { getActiveTasks, getCompletedTasks, createTask, completeTask, deleteTask } from "../modules/taskManager";
 
 const styles = {
   main: {
