@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import { getActiveTasks, getCompletedTasks, createTask, completeTask, deleteTask } from "../modules/taskManager";
+import { getActiveTasks, getCompletedTasks, createTask, completeTask, deleteTask } from '../modules/taskManager'; // Adjust path as needed
+import Task from '../model/Task'; // Adjust path as needed
 
 const styles = {
   main: {
@@ -42,8 +43,13 @@ const styles = {
 };
 
 export default function Home() {
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState({ title: '', description: '', persona: '', group: 1 });
+  const [tasks, setTasks] = useState<Task[]>([]); // Set type to Task[]
+  const [newTask, setNewTask] = useState({
+    title: '',
+    description: '',
+    persona: '',
+    group: 1,
+  });
   const [activeTab, setActiveTab] = useState<'active' | 'completed'>('active');
 
   useEffect(() => {
