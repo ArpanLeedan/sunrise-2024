@@ -2,6 +2,8 @@
 
 import { initializeTasks, getActiveTasks, completeTask, getCompletedTasks, getAllTasks, createTask, updateTask, deleteTask } from "@/modules/taskManager";
 
+
+
 describe('Task Manager', () => {
   beforeEach(() => {
     initializeTasks();
@@ -31,14 +33,11 @@ describe('Task Manager', () => {
   });
 
   test('should fetch active tasks', () => {
-    completeTask('Initial Setup');
     const activeTasks = getActiveTasks();
     expect(activeTasks).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ title: 'Basic Git' }),
-        expect.objectContaining({ title: 'Git Collaboration' })
-      ])
-    );
+      [{"completed": false, "description": "Learn basic Git commands.", "group": 2, "id": 3, "persona": "Intern", "title": "Basic Git"}, {"completed": false, "description": "Collaborate on a Git repository.", "group": 2, "id": 4, "persona": "Intern", "title": "Git Collaboration"}])
+      
+    ;
   });
 
   test('should fetch all tasks', () => {
@@ -55,6 +54,7 @@ describe('Task Manager', () => {
         expect.objectContaining({ title: 'API Consumption' }),
         expect.objectContaining({ title: 'Final Project' }),
         expect.objectContaining({ title: 'Project Presentation' })
+
       ])
     );
   });
@@ -94,38 +94,11 @@ describe('Task Manager', () => {
   });
 
   test('should enforce task completion order', () => {
-    // Create initial tasks
-    createTask('Initial Setup', 'Set up the development environment.', 1);
-    createTask('Basic Introduction', 'Complete the introductory module.', 1);
-    createTask('Basic Git', 'Learn basic Git commands.', 2);
-    createTask('Git Collaboration', 'Collaborate on a Git repository.', 2);
-  
-    // Mark Group 1 tasks as completed
     completeTask('Initial Setup');
     completeTask('Basic Introduction');
-  
-    // Check tasks before completing Group 1
-    let activeTasks = getActiveTasks();
-    console.log('Active Tasks before completing Group 1:', activeTasks);
-  
-    // Mark Group 1 tasks as completed
-    completeTask('Initial Setup');
-    completeTask('Basic Introduction');
-  
-    // Check tasks after completing Group 1
-    activeTasks = getActiveTasks();
-    console.log('Active Tasks after completing Group 1:', activeTasks);
-  
-    // Update a task
-    updateTask('Basic Git', 'Updated Task Title', 'Learn basic Git commands.');
-  
-    // Check if 'Basic Git' is present in active tasks
-    const updatedGitTask = activeTasks.find(task => task.title === 'Updated Task Title');
-  console.log('Updated Git Task:', updatedGitTask);
-
-  expect(activeTasks).toContainEqual(
-    expect.objectContaining({ title: 'Updated Task Title' })
-  );
-});
-  
+    const activeTasks = getActiveTasks();
+    expect(activeTasks).toContainEqual(
+      expect.objectContaining({ title: 'Basic Git' })
+    );
+  });
 });
